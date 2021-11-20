@@ -19,17 +19,19 @@ try:
         time.sleep(2)
 
         print("\nДля начала укажите ваш SSH/Домен для подключения!")
-        values = input("SSH/Домен: ")
+        values  = input("SSH/Домен: ")
 
-        time.sleep(2)
-        print("\nНачинаю подключение!")
+        print("\nХорошо, теперь давайте я запишу ваш никнейм")
+        name    = input("Ваш ник: ")
 
         type = f"ssh root@{values}"
-        os.system(type)
+        os.system("\n" + type)
 
 # Add value in JSON
         try:
-            js["SSH"] += f"ssh root@{values}"
+            js["SSH"]   += f"ssh root@{values}"
+            js["name"]  += f"{name}"
+
             with open("./Utils/config.json", "w", encoding = "utf8") as file:
                 js = json.dump(js, file, indent = 2)
 
@@ -39,12 +41,23 @@ try:
 
 # IF have IP/SSH
     elif js["SSH"] != "":
+        type = js["SSH"]
+        name = js["name"]
+        names = name or "Юзер"
+
         print("Добро пожаловать в SMART-HOST!")
         time.sleep(2)
 
-        print("Рад видить вас снова! \n")
-        type = js["SSH"]
-        os.system(type)
+        print(f"Привет {names}, Рад видить тебя снова!")
+        time.sleep(2)
+        # value = input("\nЖелаете изменить ваши данные? [y/n]: ")
+        # try:
+        #     if value == "n":
+        os.system(type)   
+
+        # except Exception as e:
+        #     print(e)
+
 
 except Exception as e:
     print(e)
